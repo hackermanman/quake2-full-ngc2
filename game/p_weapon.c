@@ -765,7 +765,8 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	int		radius_damage;
 
 	damage = 100 + (int)(random() * 20.0);
-	radius_damage = 120;
+	//inc damage ngc2
+	radius_damage = 1000;
 	damage_radius = 120;
 	if (is_quad)
 	{
@@ -780,7 +781,23 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 
 	VectorSet(offset, 8, 8, ent->viewheight-8);
 	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
-	fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
+
+	//many rockets ngc2, high speed
+	fire_rocket (ent, start, forward, damage, 10000, damage_radius, radius_damage);
+	start[0] += right[0] * 10;
+	start[0] += right[1] * 10;
+	start[0] += right[2] * 10;
+	fire_rocket(ent, start, forward, damage, 10000, damage_radius, radius_damage);
+	start[0] -= right[0] * 10;
+	start[0] -= right[1] * 10;
+	start[0] -= right[2] * 10;
+	fire_rocket(ent, start, forward, damage, 800, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 10, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 600, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 10000, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 5000, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 10000, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 1, damage_radius, radius_damage);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -830,7 +847,7 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	//ngc2 change blaster speed
+	//ngc2 change blaster speed, fire in 3 different directions different speeds
 	fire_blaster (ent, start, forward, damage, 10, effect, hyper);
 	start[0] += right[0] * 10;
 	start[0] += right[1] * 10;
