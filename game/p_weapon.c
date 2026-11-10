@@ -819,6 +819,7 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	vec3_t	start;
 	vec3_t	offset;
 
+	if ((!ent)||(!ent->client))return;
 	if (is_quad)
 		damage *= 4;
 	AngleVectors (ent->client->v_angle, forward, right, NULL);
@@ -829,7 +830,17 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	//ngc2 change blaster speed
+	fire_blaster (ent, start, forward, damage, 10, effect, hyper);
+	start[0] += right[0] * 10;
+	start[0] += right[1] * 10;
+	start[0] += right[2] * 10;
+
+	fire_blaster(ent, start, forward, damage, 100, effect, hyper);
+	start[0] -= right[0] * 2;
+	start[0] -= right[1] * 2;
+	start[0] -= right[2] * 2;
+	fire_blaster(ent, start, forward, damage, 1000, effect, hyper);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
