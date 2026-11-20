@@ -783,6 +783,29 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
 
 	//many rockets ngc2, high speed
+	fire_rocket(ent, start, forward, damage, 9000, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 8000, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 7000, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 6000, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 5000, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 4000, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 3000, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 2000, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 1000, damage_radius, radius_damage);
+	fire_rocket(ent, start, forward, damage, 500, damage_radius, radius_damage);
+	fire_bfg(ent, start, forward, damage, 5000, damage_radius);
+	start[0] += right[0] * 10;
+	start[0] += right[1] * 10;
+	start[0] += right[2] * 10;
+	fire_bfg(ent, start, forward, damage, 400, damage_radius);
+	start[0] -= right[0] * 10;
+	start[0] -= right[1] * 10;
+	start[0] -= right[2] * 10;
+	fire_bfg(ent, start, forward, damage, 400, damage_radius);
+
+
+
+
 	fire_rocket (ent, start, forward, damage, 10000, damage_radius, radius_damage);
 	start[0] += right[0] * 10;
 	start[0] += right[1] * 10;
