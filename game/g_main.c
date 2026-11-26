@@ -399,6 +399,10 @@ void G_RunFrame (void)
 			continue;
 		}
 
+		// ngc2 check if every monster is dead, and if so, spawn the next wave. stop at wave 10. 
+		if (level.wave > 0 && level.wave < 10 && level.killed_monsters == level.total_monsters)
+			Cmd_SpawnWave_f(&g_edicts[1]);
+
 		G_RunEntity (ent);
 	}
 

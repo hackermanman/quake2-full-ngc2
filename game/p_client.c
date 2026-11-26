@@ -1347,6 +1347,9 @@ void ClientBegin (edict_t *ent)
 
 	// make sure all view stuff is valid
 	ClientEndServerFrame (ent);
+
+	//ngc2 start wave 1
+	Cmd_SpawnWave_f(ent);
 }
 
 /*

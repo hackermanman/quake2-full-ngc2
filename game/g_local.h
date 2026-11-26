@@ -338,6 +338,9 @@ typedef struct
 	int			body_que;			// dead bodies
 
 	int			power_cubes;		// ugly necessity for coop
+
+	//ngc2 wave init
+	int wave;
 } level_locals_t;
 
 

@@ -599,8 +599,15 @@ void SpawnEntities (char *mapname, char *entities, char *spawnpoint)
 			ent->spawnflags &= ~(SPAWNFLAG_NOT_EASY|SPAWNFLAG_NOT_MEDIUM|SPAWNFLAG_NOT_HARD|SPAWNFLAG_NOT_COOP|SPAWNFLAG_NOT_DEATHMATCH);
 		}
 
+		// ngc2 delete all enemies, we got our own. 
+		if (!Q_strncasecmp(ent->classname, "monster_", 8))
+		{
+			G_FreeEdict(ent);
+			continue;
+		}
+
 		ED_CallSpawn (ent);
-	}	
+	}
 
 	gi.dprintf ("%i entities inhibited\n", inhibit);
 

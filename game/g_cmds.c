@@ -899,6 +899,42 @@ void Cmd_PlayerList_f(edict_t *ent)
 	gi.cprintf(ent, PRINT_HIGH, "%s", text);
 }
 
+//ngc2 spawn waves spots
+void ED_CallSpawn(edict_t* ent);
+
+vec3_t wave_spots[5] = {
+	{ 621, 2478, -209 },
+	{ 133, 2511, -209 },
+	{ 30, 2092, -145 },
+	{ 51, 2502, -145 },
+	{ 326, 2075, -209 }
+};
+
+//ngc2 monster spawn types
+char* wave_monsters[3] = {
+		"monster_soldier",
+		"monster_infantry",
+		"monster_gunner"
+};
+
+//spawn wave cmd
+void Cmd_SpawnWave_f(edict_t* ent)
+{
+	edict_t* monster;
+	int i;
+
+	for (i = 0; i < 5; i++)
+	{
+		monster = G_Spawn();
+		//ngc2 spawn random monster 
+		monster->classname = wave_monsters[rand() % 3]; 
+		VectorCopy(wave_spots[i], monster->s.origin);
+		ED_CallSpawn(monster);
+	}
+
+	level.wave++;
+	gi.centerprintf(ent, "WAVE %i", level.wave);
+}
 
 /*
 =================
@@ -987,6 +1023,9 @@ void ClientCommand (edict_t *ent)
 		Cmd_Wave_f (ent);
 	else if (Q_stricmp(cmd, "playerlist") == 0)
 		Cmd_PlayerList_f(ent);
+	//ngc2 spawn wave cmd
+	else if (Q_stricmp(cmd, "spawnwave") == 0)      
+		Cmd_SpawnWave_f(ent);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }
